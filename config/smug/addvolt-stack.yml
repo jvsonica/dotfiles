@@ -1,0 +1,14 @@
+session: stck
+root: ~/Documents/projects/addvolt-composable-stack
+windows:
+  - name: core
+    commands:
+      - docker-compose up db-core
+
+  - name: raw
+    commands:
+      - docker-compose up db-raw
+
+  - name: opensearch
+    commands:
+      - docker-compose up opensearch

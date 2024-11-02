@@ -1,0 +1,14 @@
+[aws]
+disabled=true
+
+[line_break]
+disabled = true
+
+[nodejs]
+format="[$symbol($version )]($style)"
+
+[python]
+symbol=" "
+
+[package]
+disabled = true

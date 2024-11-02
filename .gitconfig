@@ -1,0 +1,12 @@
+[user]
+	name = Leonel Araujo
+	email = leonel.araujo@addvolt.com
+[core]
+	editor = nvim
+	pager = delta
+[init]
+	defaultBranch = master
+[rerere]
+	enabled = true
+[delta]
+	side-by-side = true

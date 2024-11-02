@@ -1,0 +1,21 @@
+session: api
+root: ~/Documents/projects/addvolt-api
+windows:
+  - name: git
+    commands:
+      - git status
+
+  - name: code
+    commands:
+      - nvim .
+
+  - name: run
+    env:
+      NODE_ENV: development
+      ADDVOLT_SEARCH_ENGINE_API: http://localhost:9200
+      ADDVOLT_S3_AWS_CUSTOM_ENDPOINT: http://localhost
+      ADDVOLT_S3_AWS_CUSTOM_PORT: 9001
+      ADDVOLT_API_AWS_ACCESS_KEY_ID: oq5jURjvXJq7vjl2
+      ADDVOLT_API_AWS_SECRET_ACCESS_KEY: Di1dhR3bSiILnnqn3fATgCwbVGT4j3zt
+    commands:
+      - npm run dev

@@ -1,0 +1,35 @@
+session: tsk-eng
+root: ~/Documents/projects/addvolt-task-engine
+
+env:
+  ADDVOLT_DB_CORE_URL: postgresql://addvolt-dev:dummy@127.0.0.1:5400/addvolt-core-data
+  ADDVOLT_DB_RAW_URL: postgresql://addvolt-dev:dummy@127.0.0.1:5401/addvolt-raw-data
+
+windows:
+  - name: git
+    commands:
+      - source venv/bin/activate
+      - git status
+
+  - name: code
+    commands:
+      - source venv/bin/activate
+      - nvim .
+
+  - name: processor
+    env:
+      FLASK_ENV: development
+      ADDVOLT_DB_CORE_URL: postgresql://addvolt-dev:dummy@127.0.0.1:5400/addvolt-core-data
+      ADDVOLT_DB_RAW_URL: postgresql://addvolt-dev:dummy@127.0.0.1:5401/addvolt-raw-data
+    commands:
+      - source venv/bin/activate
+      - celery --app processor:celery_app worker --bear --loglevel=INFO
+
+  - name: test
+    env:
+      FLASK_ENV: test
+      ADDVOLT_TASK_QUEUE_ENDPOINT: memory://
+      LOGGING_LEVEL: CRITICAL
+    commands:
+      - source venv/bin/activate
+      - echo "Run tests with \`python test/index.py\`"

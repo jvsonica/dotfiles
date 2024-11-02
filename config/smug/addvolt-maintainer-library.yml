@@ -1,0 +1,10 @@
+session: mtnr-lib
+root: ~/Documents/projects/maintainer-library/
+windows:
+  - name: git
+    commands:
+      - git status
+
+  - name: code
+    commands:
+      - nvim .

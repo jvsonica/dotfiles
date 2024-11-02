@@ -1,0 +1,85 @@
+# Personal preferences for ls output
+alias ls='ls -hN --color=auto --group-directories-first'
+alias la='ls -lahN --color=auto --group-directories-first'
+alias ll='la'
+
+# Additional .local/bin scripts to path
+export PATH="$PATH:~/.local/bin:/usr/bin:/usr/sbin:/opt/nvim-linux64/bin"
+export PATH=$PATH:/usr/local/go/bin
+
+# Menu to change to project directory
+alias cdproj='cd ~/Documents/projects/$(ls ~/Documents/projects | fzf --height 40%)'
+alias cdporj='cdproj'
+
+# Menu to change to personal directory
+alias cdpersonal='cd ~/Documents/personal/$(ls ~/Documents/personal | fzf --height 40%)'
+
+# Menu to change to project directory
+alias cdconfig='cd ~/.config/$(ls ~/.config | dmenu -p "Browse config:")'
+
+# Menu to pick tmux session
+alias cdsess='smug start -f $(ls ~/.config/smug/ | fzf --height 40%)'
+
+# Clipboard interactions
+alias clip-base64='xclip --clipboard -o | base64 -d'
+alias clip-echo='xclip -selection clipboard -o'
+alias copy-to-clip='xclip -selection clipboard'
+
+# Alias python3 to "python" to prevent mistakenly use python2
+alias python='python3'
+
+# List current sprint assignments
+alias assignments="curl --request GET --silent https://iframes.addvolt.com/api/team/assignments | jq"
+
+# Edit profile (this file)
+alias edit-profile="nvim ~/.jvsonicaprofile"
+
+# git aliases
+alias gcf='git checkout $(git branch -r | sed "s/origin\///" | fzf --height 40%)'
+alias gs="git status" 
+
+# Dmenu bookmarks
+bookmarks() {
+    xdg-open $(cat ~/.config/bookmarks.txt | dmenu -i -l 5 -p "Find Bookmark:" | awk -F '"' '{print $4}')
+}
+alias bm="bookmarks"
+alias b="bookmarks"
+
+# Use z instead of cd
+# alias cd='z'
+
+ssh-aws() {
+    # Get available instance details
+    instance_details=$(aws ec2 describe-instances --query "Reservations[].Instances[].[InstanceId,PublicIpAddress,Tags[?Key=='Name'].Value|[0]]" --output text)
+
+    if [ -z "$instance_details" ]; then
+        echo "No instances found. Exiting"
+        return 1
+    fi
+
+    # Select instance using fzf
+    selected_instance=$(echo "$instance_details" | awk '{print $3 "\t" $2}' | sort | column -t | fzf --header="Selected AWS instance")
+
+    # Check if no instance selected
+    if [ -z "$selected_instance" ]; then
+        echo "No instance selected. Exiting..."
+        return 1
+    fi
+
+    # Extract instance IP, and Name tag
+    instance_ip=$(echo "$selected_instance" | awk '{print $2}')
+    instance_name=$(echo "$selected_instance" | awk '{print $1}')
+
+    # Get list of SSH keys
+    key_list=$(ls ~/.ssh/*.pem 2>/dev/null)
+
+    # Select SSH key using fzf
+    selected_key=$(echo "$key_list" | fzf --header="Select SSH key: ")
+    
+    # SSH into selected instance
+    echo "Connecting to $instance_name with $selected_key..."
+    ssh -i "$selected_key" ec2-user@"$instance_ip"
+}
+alias s=ssh-aws
+
+source ~/.jvsonicakeys
