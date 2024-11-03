@@ -82,4 +82,6 @@ ssh-aws() {
 }
 alias s=ssh-aws
 
-source ~/.jvsonicakeys
+if [ -f "$HOME/.jvsonicakeys" ]; then
+    source "$HOME/.jvsonicakeys"
+fi
