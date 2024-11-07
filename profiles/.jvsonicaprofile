@@ -15,18 +15,20 @@ alias cdporj='cdproj'
 alias cdpersonal='cd ~/Documents/personal/$(ls ~/Documents/personal | fzf --height 40%)'
 
 # Menu to change to project directory
-alias cdconfig='cd ~/.config/$(ls ~/.config | dmenu -p "Browse config:")'
+alias cdconfig='cd ~/.config/$(ls ~/.config | fzf --height 40%)'
 
 # Menu to pick tmux session
-alias cdsess='smug start -f $(ls ~/.config/smug/ | fzf --height 40%)'
+alias cdsess='smug start $(smug list | fzf --height 40%) --attach'
 
 # Clipboard interactions
 alias clip-base64='xclip --clipboard -o | base64 -d'
 alias clip-echo='xclip -selection clipboard -o'
 alias copy-to-clip='xclip -selection clipboard'
 
-# Alias python3 to "python" to prevent mistakenly use python2
+# Utility aliases of existing binaries
 alias python='python3'
+alias docker-compose="docker compose"
+alias bat='batcat'
 
 # List current sprint assignments
 alias assignments="curl --request GET --silent https://iframes.addvolt.com/api/team/assignments | jq"
@@ -40,7 +42,7 @@ alias gs="git status"
 
 # Dmenu bookmarks
 bookmarks() {
-    xdg-open $(cat ~/.config/bookmarks.txt | dmenu -i -l 5 -p "Find Bookmark:" | awk -F '"' '{print $4}')
+    xdg-open $(cat ~/.config/bookmarks.txt | fzf --height 40% | awk -F '"' '{print $4}')
 }
 alias bm="bookmarks"
 alias b="bookmarks"
