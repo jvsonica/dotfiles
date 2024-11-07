@@ -14,7 +14,7 @@ configuration{
     sidebar-mode: true;
 }
 
-@theme "/home/leonel/.local/share/rofi/themes/rounded-nord-dark.rasi"
+@theme "/usr/share/rofi/themes/gruvbox-dark-soft.rasi"
 
 window {
     width: 70%;
