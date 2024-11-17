@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# Scan for Wi-Fi networks and parse the output to get SSIDs
+networks=$(nmcli -f SSID,SIGNAL,SECURITY,BARS device wifi list | tail -n +2 | sed '/^--/d' | awk '{$1=$1; print}')
+
+# Check if networks are found
+if [[ -z "$networks" ]]; then
+  notify-send "No Wi-Fi networks found"
+  exit 1
+fi
+
+# Use rofi to select a network
+chosen_network=$(echo "$networks" | rofi -dmenu -i -p "Select Wi-Fi Network" -no-custom -format "s")
+
+# Exit if no selection was made
+if [[ -z "$chosen_network" ]]; then
+  exit 1
+fi
+
+# Extract the SSID (first field)
+ssid=$(echo "$chosen_network" | awk '{print $1}')
+
+# Attempt to connect to the selected network
+nmcli device wifi connect "$ssid" || notify-send "Failed to connect to $ssid"
