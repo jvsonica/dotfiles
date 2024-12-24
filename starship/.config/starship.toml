@@ -12,3 +12,12 @@ symbol=" "
 
 [package]
 disabled = true
+
+# Add this to your starship.toml
+[custom.detect_sensible_env]
+command =  ''' ~/.local/bin/detect_sensible_env.sh '''
+when = '''[ -f ~/.local/bin/detect_sensible_env.sh ]  '''
+style = 'bold red'
+format = '[${output} ]($style)'
+description = 'Show danger indication when a sensible environment variable is found.'
+
