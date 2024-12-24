@@ -1,3 +1,5 @@
+# Add deno completions to search path
+if [[ ":$FPATH:" != *":/home/leonel/.zsh/completions:"* ]]; then export FPATH="/home/leonel/.zsh/completions:$FPATH"; fi
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -158,3 +160,11 @@ fi
 if command -v zoxide >/dev/null 2>&1; then
     eval "$(zoxide init zsh)"
 fi
+
+# Add deno to path
+if [ -d "$HOME/.deno/" ] ; then
+    . "$HOME/.deno/env"
+    autoload -Uz compinit
+    compinit
+fi
+
