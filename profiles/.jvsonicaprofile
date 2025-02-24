@@ -14,11 +14,16 @@ alias cdporj='cdproj'
 # Menu to change to personal directory
 alias cdpersonal='cd ~/Documents/personal/$(ls ~/Documents/personal | fzf --height 40%)'
 
-# Menu to change to project directory
+# Menu to change to config directory
 alias cdconfig='cd ~/.config/$(ls ~/.config | fzf --height 40%)'
 
 # Menu to pick tmux session
 alias cdsess='smug start $(smug list | fzf --height 40%) --attach'
+alias cdess='cdsess'
+
+# Personal scripts alias for typos or more shortcuts
+alias rrr='restart-on-stop'
+alias s='ssh-aws'
 
 # Clipboard interactions
 alias clip-base64='xclip --clipboard -o | base64 -d'
@@ -33,9 +38,6 @@ alias bat='batcat'
 # List current sprint assignments
 alias assignments="curl --request GET --silent https://iframes.addvolt.com/api/team/assignments | jq"
 
-# Edit profile (this file)
-alias edit-profile="nvim ~/.jvsonicaprofile"
-
 # git aliases
 alias gcf='git checkout $(git branch -r | sed "s/origin\///" | fzf --height 40%)'
 alias gs="git status" 
@@ -48,41 +50,18 @@ alias bm="bookmarks"
 alias b="bookmarks"
 
 # Use z instead of cd
-# alias cd='z'
+alias cd='z'
 
-ssh-aws() {
-    # Get available instance details
-    instance_details=$(aws ec2 describe-instances --query "Reservations[].Instances[].[InstanceId,PublicIpAddress,Tags[?Key=='Name'].Value|[0]]" --output text)
-
-    if [ -z "$instance_details" ]; then
-        echo "No instances found. Exiting"
-        return 1
-    fi
-
-    # Select instance using fzf
-    selected_instance=$(echo "$instance_details" | awk '{print $3 "\t" $2}' | sort | column -t | fzf --header="Selected AWS instance")
-
-    # Check if no instance selected
-    if [ -z "$selected_instance" ]; then
-        echo "No instance selected. Exiting..."
-        return 1
-    fi
-
-    # Extract instance IP, and Name tag
-    instance_ip=$(echo "$selected_instance" | awk '{print $2}')
-    instance_name=$(echo "$selected_instance" | awk '{print $1}')
-
-    # Get list of SSH keys
-    key_list=$(ls ~/.ssh/*.pem 2>/dev/null)
-
-    # Select SSH key using fzf
-    selected_key=$(echo "$key_list" | fzf --header="Select SSH key: ")
-    
-    # SSH into selected instance
-    echo "Connecting to $instance_name with $selected_key..."
-    ssh -i "$selected_key" ec2-user@"$instance_ip"
+# Show password of currently-connected wi-fi
+wifi-pw() {
+    notify-send "Wi-Fi Credentials" "$(nmcli device wifi show | awk -F ': ' 'tolower($1) ~ /ssid|password/ {print $1 ": " $2}')"
 }
-alias s=ssh-aws
+
+# On zsh add a bind for CTRL+F to open smug sessions
+if [[ "$SHELL" == *"zsh" ]]; then
+  bindkey -s "^f" "cdsess\n"
+fi
+
 
 if [ -f "$HOME/.jvsonicakeys" ]; then
     source "$HOME/.jvsonicakeys"

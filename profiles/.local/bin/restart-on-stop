@@ -1,0 +1,41 @@
+#!/bin/bash
+# Starts the script passed as parameter and prompts user for a restart when it breaks
+
+# Check if a script is provided
+if [[ $# -eq 0 ]]; then
+    echo "Usage: $0 <script-path>"
+    exit 1
+fi
+
+SCRIPT="$1"
+
+# Check if the script exists and is executable
+if [[ ! -f "$SCRIPT" ]]; then
+    echo "Error: Script '$SCRIPT' does not exist."
+    exit 1
+fi
+
+if [[ ! -x "$SCRIPT" ]]; then
+    echo "Error: Script '$SCRIPT' is not executable. Please check permissions."
+    exit 1
+fi
+
+# Main loop
+while true; do
+    echo "Restarting on stop: $SCRIPT"
+    echo
+
+    # Run the script
+    bash "$SCRIPT"
+
+    echo
+    read -p "Type 'rs' or 'r' to restart or any other key to exit: " input
+    echo
+
+    if [[ "$input" != "rs" && "$input" != "r" ]]; then
+        echo "Exiting watcher..."
+        break
+    fi
+    echo "Restarting..."
+    echo
+done

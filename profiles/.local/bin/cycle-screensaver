@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Define the wallpaper directory
+WALLPAPER_DIR="$HOME/Pictures/wallpapers"
+
+# Select a random image from the directory
+IMAGE=$(find "$WALLPAPER_DIR" -type f -iname "*.jpg" -or -iname "*.png" | shuf -n 1)
+
+# Set the screensaver using Betterlockscreen
+betterlockscreen -u "$IMAGE"
