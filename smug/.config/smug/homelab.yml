@@ -1,0 +1,10 @@
+session: homelab
+root: ~/Documents/projects/homelab/
+windows:
+  - name: code
+    commands:
+      - nvim .
+  - name: git
+  - name: remote
+    commands:
+      - ssh homelab

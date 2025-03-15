@@ -1,7 +1,8 @@
-session: playbook
-root: ~/Documents/projects/playbook/
+session: aoc2024
+root: ~/Documents/projects/aoc2024/
 windows:
   - name: code
     commands:
       - nvim .
+
   - name: git
