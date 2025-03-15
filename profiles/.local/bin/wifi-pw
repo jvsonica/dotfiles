@@ -1,0 +1,3 @@
+#!/bin/bash
+
+notify-send "Wi-Fi Credentials" "$(nmcli device wifi show | awk -F ': ' 'tolower($1) ~ /ssid|password/ {print $1 ": " $2}')"

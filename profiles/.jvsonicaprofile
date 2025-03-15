@@ -1,6 +1,6 @@
 # Personal preferences for ls output
 alias ls='ls -hN --color=auto --group-directories-first'
-alias la='ls -lahN --color=auto --group-directories-first'
+alias la='ls -lahN'
 alias ll='la'
 
 # Additional .local/bin scripts to path
@@ -8,17 +8,17 @@ export PATH="$PATH:~/.local/bin:/usr/bin:/usr/sbin:/opt/nvim-linux64/bin"
 export PATH=$PATH:/usr/local/go/bin
 
 # Menu to change to project directory
-alias cdproj='cd ~/Documents/projects/$(ls ~/Documents/projects | fzf --height 40%)'
+alias cdproj='cd ~/Documents/projects/$(ls ~/Documents/projects | fzf --height 20%)'
 alias cdporj='cdproj'
 
 # Menu to change to personal directory
-alias cdpersonal='cd ~/Documents/personal/$(ls ~/Documents/personal | fzf --height 40%)'
+alias cdpersonal='cd ~/Documents/personal/$(ls ~/Documents/personal | fzf --height 20%)'
 
 # Menu to change to config directory
-alias cdconfig='cd ~/.config/$(ls ~/.config | fzf --height 40%)'
+alias cdconfig='cd ~/.config/$(ls ~/.config | fzf --height 20%)'
 
 # Menu to pick tmux session
-alias cdsess='smug start $(smug list | fzf --height 40%) --attach'
+alias cdsess='smug start $(smug list | fzf --height 20%) --attach'
 alias cdess='cdsess'
 
 # Personal scripts alias for typos or more shortcuts
@@ -26,14 +26,15 @@ alias rrr='restart-on-stop'
 alias s='ssh-aws'
 
 # Clipboard interactions
-alias clip-base64='xclip --clipboard -o | base64 -d'
-alias clip-echo='xclip -selection clipboard -o'
-alias copy-to-clip='xclip -selection clipboard'
+alias clip-copy='xclip -selection clipboard'
+alias clip-paste='xclip -selection clipboard -o'
+alias clip-decode='xclip -selection clipboard -o | base64 -d'
 
 # Utility aliases of existing binaries
 alias python='python3'
 alias docker-compose="docker compose"
 alias bat='batcat'
+alias ta='tmux attach'
 
 # List current sprint assignments
 alias assignments="curl --request GET --silent https://iframes.addvolt.com/api/team/assignments | jq"
@@ -52,14 +53,9 @@ alias b="bookmarks"
 # Use z instead of cd
 alias cd='z'
 
-# Show password of currently-connected wi-fi
-wifi-pw() {
-    notify-send "Wi-Fi Credentials" "$(nmcli device wifi show | awk -F ': ' 'tolower($1) ~ /ssid|password/ {print $1 ": " $2}')"
-}
-
 # On zsh add a bind for CTRL+F to open smug sessions
 if [[ "$SHELL" == *"zsh" ]]; then
-  bindkey -s "^f" "cdsess\n"
+    bindkey -s "^f" "cdsess\n"
 fi
 
 

@@ -1,6 +1,21 @@
 #!/bin/bash
 
-# Make sure rofi's "run" menu is aware of scripts in .local/bin
-export PATH="$HOME/.local/bin:$PATH"
+SCRIPTS_DIR="$HOME/.local/bin"
 
-rofi -show run
+# List executable scripts in the directory
+mapfile -t SCRIPTS < <(find "$SCRIPTS_DIR" -maxdepth 1 -xtype f -executable -printf "%f\n")
+
+# Include some system commands on the list
+SYSTEM_COMMANDS=(
+    "poweroff"
+    "reboot"
+    "shutdown"
+    "lock"
+
+)
+CHOICES=$(printf "%s\n" "${SCRIPTS[@]}" "${SYSTEM_COMMANDS[@]}")
+
+# Show the Rofi menu
+SELECTED=$(echo "$CHOICES" | rofi -dmenu -p "Run Script")
+
+bash "$SCRIPTS_DIR/$SELECTED" &>>/tmp/rofi-select-script.log
