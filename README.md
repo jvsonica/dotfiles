@@ -4,7 +4,7 @@ My personal dotfiles and configuration settings for various tools and applicatio
 
 This has been structured to be compatible with [stow](https://www.gnu.org/software/stow/manual/stow.html), so to apply these dotfiles, simply run:
 
-``` bash
+```bash
 # to stow a particular module
 stow tmux
 
@@ -12,3 +12,6 @@ stow tmux
 stow --adopt */
 ```
 
+## Future Work
+
+- nvim neotest and tsc plugins
