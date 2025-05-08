@@ -14,4 +14,6 @@ stow --adopt */
 
 ## Future Work
 
-- nvim neotest and tsc plugins
+- binds for spotify controls on i3 keybinds
+- polybar with calendar popup
+- nvim: fzf lua resume on leader+f+R
