@@ -11,11 +11,20 @@ SYSTEM_COMMANDS=(
     "reboot"
     "shutdown"
     "lock"
-
 )
+
+# Combine scripts and system commands into a single list
 CHOICES=$(printf "%s\n" "${SCRIPTS[@]}" "${SYSTEM_COMMANDS[@]}")
 
 # Show the Rofi menu
 SELECTED=$(echo "$CHOICES" | rofi -dmenu -p "Run Script")
 
-bash "$SCRIPTS_DIR/$SELECTED" &>>/tmp/rofi-select-script.log
+# Check if the selected command is a system command
+if printf "%s\n" "${SYSTEM_COMMANDS[@]}" | grep -Fxq "$SELECTED"; then
+    # Run the system command directly
+    export PATH=$PATH:/sbin:/usr/sbin
+    $SELECTED &>>/tmp/rofi-select-script.log
+else
+    # Run the script from the SCRIPTS_DIR
+    bash "$SCRIPTS_DIR/$SELECTED" &>>/tmp/rofi-select-script.log
+fi
