@@ -9,7 +9,7 @@ PARENT_BAR_PID=$(pgrep -a "polybar" | grep "$PARENT_BAR" | cut -d" " -f1)
 # Examples: spotify, vlc, chrome, mpv and others.
 # Use `playerctld` to always detect the latest player.
 # See more here: https://github.com/altdesktop/playerctl/#selecting-players-to-control
-PLAYER="spotify"
+PLAYER="playerctld"
 
 # Format of the information displayed
 # Eg. {{ artist }} - {{ album }} - {{ title }}
@@ -23,13 +23,14 @@ update_hooks() {
     done < <(echo "$1")
 }
 
+# Get playback status, suppressing errors
 PLAYERCTL_STATUS=$(playerctl --player=$PLAYER status 2>/dev/null)
 EXIT_CODE=$?
 
-if [ $EXIT_CODE -eq 0 ]; then
-    STATUS=$PLAYERCTL_STATUS
-else
-    STATUS="No player is running"
+# If playerctl failed (e.g., player not running) or status is Stopped, output nothing.
+if [ $EXIT_CODE -ne 0 ] || [ "$PLAYERCTL_STATUS" = "Stopped" ]; then
+    echo ""
+    exit 0
 fi
 
 if [ "$1" == "--status" ]; then
