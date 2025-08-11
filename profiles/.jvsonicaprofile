@@ -40,7 +40,7 @@ alias ta='tmux attach'
 alias assignments="curl --request GET --silent https://iframes.addvolt.com/api/team/assignments | jq"
 
 # git aliases
-alias gcf='git checkout $(git branch -r | sed "s/origin\///" | fzf --height 40%)'
+alias gcf='git for-each-ref --sort=-committerdate --format="%(refname:short)" refs/remotes/origin | sed "s|origin/||" | fzf --height 40%'
 alias gs="git status" 
 
 # Dmenu bookmarks
