@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Get available instance details
-instance_details=$(aws ec2 describe-instances --query "Reservations[].Instances[].[InstanceId,PublicIpAddress,Tags[?Key=='Name'].Value|[0]]" --output text)
+instance_details=$(aws ec2 describe-instances --query "Reservations[].Instances[].[Tags[?Key=='Name'].Value|[0],InstanceId,PrivateIpAddress,PublicIpAddress]" --output text)
 
 if [ -z "$instance_details" ]; then
     echo "No instances found. Exiting"
@@ -9,7 +9,8 @@ if [ -z "$instance_details" ]; then
 fi
 
 # Select instance using fzf
-selected_instance=$(echo "$instance_details" | awk '{print $3 "\t" $2}' | sort | column -t | fzf --header="Select AWS instance")
+# Name, InstanceId, PrivateIpAddress, PublicIpAddress
+selected_instance=$(echo "$instance_details" | awk '{print $1 "\t" $2 "\t" $3 "\t" $4}' | sort | column -t | fzf --header="Select AWS instance")
 
 # Check if no instance selected
 if [ -z "$selected_instance" ]; then
@@ -18,7 +19,8 @@ if [ -z "$selected_instance" ]; then
 fi
 
 # Extract instance IP and Name tag
-instance_ip=$(echo "$selected_instance" | awk '{print $2}')
+instance_ip=$(echo "$selected_instance" | awk '{print $4}')
+instance_private_ip=$(echo "$selected_instance" | awk '{print $3}')
 instance_name=$(echo "$selected_instance" | awk '{print $1}')
 
 # Get list of SSH keys
@@ -38,5 +40,5 @@ if [ -z "$selected_key" ]; then
 fi
 
 # SSH into selected instance
-echo "Connecting to $instance_name with $selected_key..."
+echo "Connecting to $instance_name ($instance_private_ip) with $selected_key..."
 ssh -i "$selected_key" ec2-user@"$instance_ip"
