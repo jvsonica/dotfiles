@@ -177,3 +177,9 @@ fi
 if [ -x /home/linuxbrew/.linuxbrew/bin/brew ]; then
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
+
+# Initialize mise environment (adds shims and environment variables)
+if [ -x /home/leonel/.local/bin/mise ]; then
+    eval "$(/home/leonel/.local/bin/mise activate zsh)"
+fi
+
