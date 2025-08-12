@@ -1,9 +1,9 @@
 session: dotfiles
 root: ~/.dotfiles/
 windows:
-  - name: code
-    commands:
-      - nvim .
-
-  - name: git
-
+    - name: code
+      commands:
+        - nvim .
+    - name: git
+      commands:
+        - git status

@@ -1,0 +1,3 @@
+# Ignore smug sessions for work
+smug/.config/smug/addvolt*.yml
+

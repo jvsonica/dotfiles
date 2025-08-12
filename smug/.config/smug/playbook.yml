@@ -1,7 +1,7 @@
 session: playbook
 root: ~/Documents/projects/playbook/
 windows:
-  - name: code
-    commands:
-      - nvim .
-  - name: git
+    - name: code
+      commands:
+        - nvim .
+    - name: git
