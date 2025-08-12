@@ -168,3 +168,12 @@ if [ -d "$HOME/.deno/" ] ; then
     compinit
 fi
 
+# Add rush crate to path
+if [ -d "$HOME/.cargo/bin" ]; then
+    export PATH="$HOME/.cargo/bin:$PATH"
+fi
+
+# Add brew cask to path
+if [ -x /home/linuxbrew/.linuxbrew/bin/brew ]; then
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
