@@ -3,14 +3,15 @@
 # Define display configurations
 declare -A DISPLAY_CONFIGS
 
-DISPLAY_CONFIGS["laptop"]="xrandr --output eDP-1"
+DISPLAY_CONFIGS["reset"]="xrandr --auto"
+DISPLAY_CONFIGS["laptop"]="xrandr --output eDP-1 --auto --primary --output HDMI-1 --off"
 DISPLAY_CONFIGS["home-tv"]="xrandr --output HDMI-1 --mode 1920x1080 --right-of eDP-1 --primary"
 DISPLAY_CONFIGS["office-meeting-room-2"]="xrandr --output HDMI-1 --mode 1280x720 --same-as eDP-1"
 DISPLAY_CONFIGS["office-meeting-room-1"]="xrandr --output HDMI-1 --mode 1280x720 --same-as eDP-1"
 DISPLAY_CONFIGS["office-workstation"]="xrandr --output HDMI-1 --mode 2560x1440 --left-of eDP-1 --primary"
 
 # Show options in dmenu
-choice=$(echo "${!DISPLAY_CONFIGS[@]}" | tr ' ' '\n' | dmenu -i -p "Select Display Mode:")
+choice=$(echo "${!DISPLAY_CONFIGS[@]}" | tr ' ' '\n' | rofi -dmenu -p "Select Display Mode:")
 
 # Apply chosen configuration
 if [[ -n "${DISPLAY_CONFIGS[$choice]}" ]]; then
