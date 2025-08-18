@@ -1,2 +1,7 @@
+# IDE or where I usually put my scripts
 .vim/
 .nvim/
+
+# Aider
+.aider*
+!.aiderignore
