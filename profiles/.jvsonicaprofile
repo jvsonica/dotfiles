@@ -59,12 +59,18 @@ alias b="bookmarks"
 # Use z instead of cd
 alias cd='z'
 
-# On zsh add a bind for CTRL+F to open smug sessions
+# Additional bind keys for zsh
 if [[ "$SHELL" == *"zsh" ]]; then
+    # CTRL+F to open smug sessions
     bindkey -s "^f" "cdsess\n"
+    # CTRL+<space> to accept suggestion
+    bindkey '^ ' autosuggest-accept
 fi
 
 
 if [ -f "$HOME/.jvsonicakeys" ]; then
     source "$HOME/.jvsonicakeys"
 fi
+
+
+
