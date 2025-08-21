@@ -25,6 +25,7 @@ alias cdconfig='cd ~/.config/$(ls ~/.config | fzf --height 20%)'
 # Menu to pick tmux session
 alias cdsess='smug start $(smug list | fzf --height 20%) --attach'
 alias cdess='cdsess'
+alias ts='tmux-sessionizer'
 
 # Personal scripts alias for typos or more shortcuts
 alias rrr='restart-on-stop'
