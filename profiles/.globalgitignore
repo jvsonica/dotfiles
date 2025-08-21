@@ -5,3 +5,6 @@
 # Aider
 .aider*
 !.aiderignore
+
+# Mise
+mise.local.toml
