@@ -1,8 +1,12 @@
-[aws]
-disabled=true
+"$schema" = 'https://starship.rs/config-schema.json'
+
+add_newline = true
 
 [line_break]
-disabled = true
+disabled = false
+
+[aws]
+disabled=true
 
 [nodejs]
 format="[$symbol($version )]($style)"
