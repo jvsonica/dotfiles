@@ -8,3 +8,13 @@
 
 # Mise
 mise.local.toml
+
+# Env
+.env
+.env.test
+
+# Python
+*.egg-info
+.venv/
+venv/
+
