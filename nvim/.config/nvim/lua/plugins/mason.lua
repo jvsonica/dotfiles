@@ -7,6 +7,7 @@ return {
                 "shellcheck",
                 "shfmt",
                 "yamlfmt",
+                "mdformat",
             },
         },
     },
