@@ -5,12 +5,13 @@ local wezterm = require("wezterm")
 local config = wezterm.config_builder()
 
 -- Theme
--- config.color_scheme = "Catppuccin Frappe"
-config.color_scheme = "tokyonight"
+config.color_scheme = "Catppuccin Macchiato"
+-- config.color_scheme = "tokyonight"
 
 -- Font
 -- config.font = wezterm.font("Hack Nerd Font")
-config.font_size = 11.5
+config.font_size = 11
+config.line_height = 1.15
 
 -- Use Comic Sans on April Fool's
 local april_fools_font = "Comic Shanns Mono Nerd Font"
@@ -26,13 +27,13 @@ config.window_decorations = "NONE"
 config.window_padding = {
     left = 0,
     right = 0,
-    top = 5,
+    top = 0,
     bottom = 0,
 }
 
--- Always show "wezterm" as window title
+-- Always show "terminal" as window title
 wezterm.on("format-window-title", function()
-    return "wezterm"
+    return "terminal"
 end)
 
 config.window_background_opacity = 0.80
