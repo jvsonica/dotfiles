@@ -6,7 +6,7 @@ declare -A DISPLAY_CONFIGS
 DISPLAY_CONFIGS["reset"]="xrandr --auto"
 DISPLAY_CONFIGS["laptop"]="xrandr --output eDP-1 --auto --primary --output HDMI-1 --off"
 DISPLAY_CONFIGS["home-tv"]="xrandr --output HDMI-1 --mode 1920x1080 --right-of eDP-1 --output eDP-1 --primary"
-DISPLAY_CONFIGS["office-meeting-room-2"]="xrandr --output HDMI-1 --mode 1280x720 --same-as eDP-1"
+DISPLAY_CONFIGS["office-meeting-room-2"]="xrandr --output HDMI-1 --mode 1920x1080 --same-as eDP-1"
 DISPLAY_CONFIGS["office-meeting-room-1"]="xrandr --output HDMI-1 --mode 1280x720 --same-as eDP-1"
 DISPLAY_CONFIGS["office-workstation"]="xrandr --output HDMI-1 --mode 1920x1080 --above eDP-1 --output eDP-1 --primary"
 
@@ -15,8 +15,15 @@ choice=$(echo "${!DISPLAY_CONFIGS[@]}" | tr ' ' '\n' | rofi -dmenu -p "Select Di
 
 # Apply chosen configuration
 if [[ -n "${DISPLAY_CONFIGS[$choice]}" ]]; then
-    eval "${DISPLAY_CONFIGS[$choice]}"
-    notify-send "Applied $choice"
+    # Run the command, capturing stderr for error reporting
+    output=$({ eval "${DISPLAY_CONFIGS[$choice]}"; } 2>&1)
+    status=$?
+
+    if [[ $status -eq 0 ]]; then
+        notify-send "Applied $choice"
+    else
+        notify-send -u critical "Failed to apply: $choice" "$output"
+    fi
 else
     notify-send "Invalid selection or cancelled."
 fi
