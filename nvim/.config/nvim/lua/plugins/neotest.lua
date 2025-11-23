@@ -1,7 +1,10 @@
 local function load_env_file(filename)
     local env_vars = {}
-    local lines = vim.fn.readfile(filename)
+    if vim.fn.filereadable(filename) == 0 then
+        return env_vars
+    end
 
+    local lines = vim.fn.readfile(filename)
     for _, line in ipairs(lines) do
         local key, value = line:match("([^=]+)=(.+)")
         if key and value then

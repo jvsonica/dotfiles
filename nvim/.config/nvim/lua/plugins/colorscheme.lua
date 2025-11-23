@@ -12,12 +12,13 @@ return {
         lazy = false,
         name = "catppuccin",
         opts = {
+            -- transparent_background = true,
             integrations = {
                 cmp = true,
                 gitsigns = true,
                 nvimtree = true,
                 treesitter = true,
-                notify = false,
+                notify = true,
                 mini = {
                     enabled = true,
                     indentscope_color = "",

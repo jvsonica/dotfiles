@@ -32,9 +32,9 @@ return {
             yamlfmt = {
                 prepend_args = { "--formatter", "indent=4" },
             },
-            mdformat = {
-                args = { "--wrap", "110", "-" },
-            },
+            -- mdformat = {
+            --     args = { "--wrap", "110", "-" },
+            -- },
         },
     },
 }
