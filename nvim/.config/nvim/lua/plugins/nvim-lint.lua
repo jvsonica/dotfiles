@@ -9,5 +9,13 @@ return {
             -- typescriptreact = { "eslint" },
             markdown = { "markdownlint-cli2" },
         },
+        linters = {
+            ["markdownlint-cli2"] = {
+                args = {
+                    "--config",
+                    vim.fn.expand("~/.markdownlint.json"),
+                },
+            },
+        },
     },
 }
