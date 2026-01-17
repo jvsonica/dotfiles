@@ -17,7 +17,7 @@ formatter:
     drop_merge_tag: false
     eof_newline: false
     include_document_start: false
-    indent: 4
+    indent: 2
     indent_root_array: false
     indentless_arrays: false
     line_ending: lf
