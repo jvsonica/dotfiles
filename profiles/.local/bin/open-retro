@@ -5,9 +5,11 @@
 # TODO: check if file / vars are loaded, if not notify
 source /home/leonel/.jvsonicakeys
 
-cql="space=LI%20and%20label=%22retrospective%22%20and%20label=%22cloud%22%20order%20by%20created%20desc&limit=1"
+cql="space=LI%20and%20label=%22retrospective%22%20and%20label=%22cloud%22%20order%20by%20created%20desc&limit=2"
 
-curl -s --user "$ATLASSIAN_USER:$ATLASSIAN_TOKEN" \
+page_id=$(curl -s --user "$ATLASSIAN_USER:$ATLASSIAN_TOKEN" \
     "https://addvolt.atlassian.net/wiki/rest/api/content/search?cql=$cql" |
-    jq -r '.results[0].id' |
-    xargs -I {} xdg-open "https://addvolt.atlassian.net/wiki/spaces/LI/pages/edit-v2/{}"
+    jq -r '.results[] | select(.title | contains("XX") | not) | .id' |
+    head -n1)
+
+xdg-open "https://addvolt.atlassian.net/wiki/spaces/LI/pages/edit-v2/$page_id"
