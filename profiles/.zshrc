@@ -176,3 +176,6 @@ if [ -x /home/leonel/.local/bin/mise ]; then
     eval "$($HOME/.local/bin/mise activate zsh)"
 fi
 
+
+# opencode
+export PATH=/home/leonel/.opencode/bin:$PATH

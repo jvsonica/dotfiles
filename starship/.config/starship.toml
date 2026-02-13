@@ -20,7 +20,10 @@ style = "bold bright-blue"
 [package]
 disabled = true
 
-# Add this to your starship.toml
+[cmd_duration]
+min_time = 300
+format = 'took [$duration](bold yellow)'
+
 [custom.detect_sensible_env]
 command = ''' ~/.local/bin/detect-sensible-env.sh '''
 when = '''[ -f ~/.local/bin/detect-sensible-env.sh ]  '''

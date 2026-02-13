@@ -33,18 +33,19 @@ alias s='ssh-aws'
 
 # Clipboard interactions
 alias clip-copy='xclip -selection clipboard'
+alias clip='clip-copy'
 alias clip-paste='xclip -selection clipboard -o'
 alias clip-decode='xclip -selection clipboard -o | base64 -d'
 
 # Utility aliases of existing binaries
 alias python='python3'
 alias docker-compose="docker compose"
+alias dcu="docker compose up"
+alias dcs="docker compose stop"
 alias bat='batcat'
 alias ta='tmux attach'
 alias sb='supabase'
-
-# List current sprint assignments
-alias assignments="curl --request GET --silent https://iframes.addvolt.com/api/team/assignments | jq"
+alias tf='terraform'
 
 # git aliases
 alias gs="git status" 
@@ -88,6 +89,4 @@ fi
 if [ -f "$HOME/.jvsonicakeys" ]; then
     source "$HOME/.jvsonicakeys"
 fi
-
-
 

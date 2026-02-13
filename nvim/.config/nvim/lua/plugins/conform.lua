@@ -30,7 +30,7 @@ return {
                 prepend_args = { "--indent", "4" },
             },
             yamlfmt = {
-                prepend_args = { "--formatter", "indent=4" },
+                prepend_args = { "--formatter", "indent=2" },
             },
             -- mdformat = {
             --     args = { "--wrap", "110", "-" },

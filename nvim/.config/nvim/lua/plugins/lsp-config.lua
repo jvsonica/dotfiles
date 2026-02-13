@@ -29,6 +29,24 @@ return {
                     },
                 },
             },
+            pyright = {
+                settings = {
+                    python = {
+                        pythonPath = vim.fn.getcwd() .. "/.venv/bin/python",
+                    },
+                },
+            },
+            typos_lsp = {
+                settings = {
+                    typos = {
+                        dictionary = {
+                            custom = {
+                                "tou_tariffs",
+                            },
+                        },
+                    },
+                },
+            },
         },
         setup = {
             denols = function(_, opts)
