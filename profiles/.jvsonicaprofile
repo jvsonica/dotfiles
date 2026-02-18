@@ -67,12 +67,9 @@ _git_checkout_fzf() {
 }
 alias gcf="_git_checkout_fzf"
 
-# Dmenu bookmarks
-bookmarks() {
-    xdg-open $(cat ~/.config/bookmarks.txt | fzf --height 40% | awk -F '"' '{print $4}')
-}
-alias bm="bookmarks"
-alias b="bookmarks"
+# Bookmarks
+alias bm="~/.local/bin/bookmarks.sh"
+alias b="~/.local/bin/bookmarks.sh"
 
 # Use z instead of cd
 alias cd='z'
