@@ -1,7 +1,7 @@
 local hipatterns = require("mini.hipatterns")
 
 return {
-    "echasnovski/mini.hipatterns",
+    "mini/mini.hipatterns",
     version = "*",
     opts = {
         highlighters = {
