@@ -36,6 +36,6 @@ wezterm.on("format-window-title", function()
     return "terminal"
 end)
 
-config.window_background_opacity = 0.80
+config.window_background_opacity = 0.90
 
 return config
