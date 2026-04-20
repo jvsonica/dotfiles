@@ -27,7 +27,7 @@ return {
                 prepend_args = { "--line-length", "120" },
             },
             jq = {
-                prepend_args = { "--indent", "4" },
+                prepend_args = { "--indent", "2" },
             },
             yamlfmt = {
                 prepend_args = { "--formatter", "indent=2" },
