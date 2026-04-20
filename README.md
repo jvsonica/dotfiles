@@ -6,10 +6,10 @@ This has been structured to be compatible with [stow](https://www.gnu.org/softwa
 
 ```bash
 # to stow a particular module
-stow tmux
+stow -t ~ tmux
 
 # to stow all modules
-stow --adopt */
+stow -t ~ --adopt */
 ```
 
 ## Future Work
