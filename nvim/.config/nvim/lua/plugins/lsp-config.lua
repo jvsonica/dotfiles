@@ -24,7 +24,7 @@ return {
                     json = {
                         format = {
                             enable = true,
-                            indent_size = "4",
+                            indent_size = "2",
                         },
                     },
                 },

@@ -14,7 +14,7 @@ return {
             -- python = { "ruff" },
             json = { "jq" },
             yaml = { "yamlfmt" },
-            markdown = { "mdformat" },
+            markdown = { "prettier" },
         },
         -- The options you set here will be merged with the builtin formatters.
         -- You can also define any custom formatters here.
@@ -27,7 +27,7 @@ return {
                 prepend_args = { "--line-length", "120" },
             },
             jq = {
-                prepend_args = { "--indent", "2" },
+                args = { "--indent", "2" },
             },
             yamlfmt = {
                 prepend_args = { "--formatter", "indent=2" },
