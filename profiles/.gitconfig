@@ -1,7 +1,7 @@
 [user]
 	name = Leonel Araujo
 	email = leonel.araujo@addvolt.com
-	signingkey = F15313507DA404E919AC779778A9F0B107622805
+	signingkey = 57392C33EDAE511F
 [core]
 	editor = nvim
 	pager = delta
