@@ -1,3 +1,10 @@
 # Ignore smug sessions for work
 smug/.config/smug/addvolt*.yml
 
+# Ignore some skills
+profiles/.agents/skills/contributor-generic
+profiles/.agents/skills/dx-planner
+profiles/.agents/skills/create-jira-issue
+profiles/.agents/skills/systems-requirements-consultant
+
+

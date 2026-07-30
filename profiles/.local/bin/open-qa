@@ -1,0 +1,15 @@
+#!/bin/bash
+# Opens Confluence page with the current QA session. Uses title search since pages are named "QA Session YYYY W{week}"
+
+# TODO: check if file / vars are loaded, if not notify
+source "$HOME/.jvsonicakeys"
+
+year_week=$(date +"%Y W%V")
+year_week_encoded=${year_week// /%20}
+cql="space=AT1%20and%20title~%22QA%20Session%20$year_week_encoded%22%20order%20by%20created%20desc&limit=1"
+
+page_id=$(curl -s --user "$ATLASSIAN_USER:$ATLASSIAN_TOKEN" \
+    "https://addvolt.atlassian.net/wiki/rest/api/content/search?cql=$cql" |
+    jq -r '.results[0].id // empty')
+
+xdg-open "https://addvolt.atlassian.net/wiki/spaces/AT1/pages/edit-v2/$page_id"

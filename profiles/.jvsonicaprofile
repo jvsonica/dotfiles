@@ -8,6 +8,9 @@ alias ls='ls -hN --color=auto --group-directories-first'
 alias la='ls -lahN'
 alias ll='la'
 
+# Output currently connected wifi pass
+alias wifi-pw='nmcli device wifi show'
+
 # Additional .local/bin scripts to path
 export PATH="$PATH:~/.local/bin:/usr/bin:/usr/sbin:/opt/nvim-linux64/bin"
 export PATH=$PATH:/usr/local/go/bin
@@ -67,6 +70,36 @@ _git_checkout_fzf() {
 }
 alias gcf="_git_checkout_fzf"
 
+# Pick AWS profile
+awsuse() {
+    local profile
+    local config="${AWS_CONFIG_FILE:-$HOME/.aws/config}"
+
+    profile=$(
+        aws configure list-profiles |
+        sort |
+        fzf \
+          --prompt="Profile > " \
+          --height=50% \
+          --reverse \
+          --border \
+          --preview "awk '
+            \$0 == \"[profile {}]\" {p=1; print; next}
+            p && /^\[/ {exit}
+            p {print}
+        ' \"$config\""
+    ) || return
+
+    export AWS_PROFILE="$profile"
+
+    echo "Switched to $AWS_PROFILE"
+
+    aws sts get-caller-identity \
+        --query 'Account' \
+        --output text 2>/dev/null \
+        | xargs -I{} echo "Account: {}"
+}
+
 # Bookmarks
 alias bm="~/.local/bin/bookmarks.sh"
 alias b="~/.local/bin/bookmarks.sh"
@@ -87,3 +120,4 @@ if [ -f "$HOME/.jvsonicakeys" ]; then
     source "$HOME/.jvsonicakeys"
 fi
 
+export AWS_PROFILE=carrier/lxf-dev/dev

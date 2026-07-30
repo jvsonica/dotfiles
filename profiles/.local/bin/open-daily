@@ -7,7 +7,7 @@ source "$HOME/.jvsonicakeys"
 
 year_week=$(date +"%Y W%V")
 year_week_encoded=${year_week// /%20}
-cql="space=AT1%20and%20label=%22sprint-daily-log%22%20and%20label=%22cloud%22%20and%20title~%22$year_week_encoded%22%20order%20by%20created%20desc&limit=1"
+cql="space=AT1%20and%20label=%22sprint-daily-log%22%20and%20label=%22digital-services%22%20and%20title~%22$year_week_encoded%22%20order%20by%20created%20desc&limit=1"
 
 page_id=$(curl -s --user "$ATLASSIAN_USER:$ATLASSIAN_TOKEN" \
     "https://addvolt.atlassian.net/wiki/rest/api/content/search?cql=$cql" |
