@@ -5,8 +5,8 @@ local wezterm = require("wezterm")
 local config = wezterm.config_builder()
 
 -- Theme
-config.color_scheme = "Catppuccin Macchiato"
--- config.color_scheme = "tokyonight"
+-- config.color_scheme = "Catppuccin Macchiato"
+config.color_scheme = "tokyonight"
 
 -- Font
 -- config.font = wezterm.font("Hack Nerd Font")
@@ -25,7 +25,7 @@ end
 config.enable_tab_bar = false
 config.window_decorations = "NONE"
 config.window_padding = {
-    left = 0,
+    left = 5,
     right = 0,
     top = 0,
     bottom = 0,
@@ -36,6 +36,19 @@ wezterm.on("format-window-title", function()
     return "terminal"
 end)
 
-config.window_background_opacity = 0.90
+config.window_background_opacity = 0.98
+
+config.keys = {
+    {
+        key = "Tab",
+        mods = "CTRL",
+        action = wezterm.action.DisableDefaultAssignment,
+    },
+    {
+        key = "Tab",
+        mods = "CTRL|SHIFT",
+        action = wezterm.action.DisableDefaultAssignment,
+    },
+}
 
 return config

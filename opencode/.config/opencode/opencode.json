@@ -13,16 +13,17 @@
       "git commit*": "deny",
       "git push*": "deny",
       "git rebase*": "deny",
-      "rm *": "ask"
+      "rm *": "ask",
+      "terraform *": "ask"
     }
   },
   "agent": {
     "build": {
-      "model": "amazon-bedrock/qwen.qwen3-next-80b-a3b"
+      "model": "amazon-bedrock/anthropic.claude-sonnet-4-5-20250929-v1:0"
     },
     "plan": {
-      "model": "amazon-bedrock/qwen.qwen3-next-80b-a3b",
-      "system_prompt": "Prefer structured, contract-like responses to improve clarity and navigability. Organize content into numbered articles and clauses when helpful, using hierarchical enumeration (e.g., 1., 1.1, 1.2). Default to this for multi-part or non-trivial answers, and use plain prose for simple replies."
+      "model": "amazon-bedrock/anthropic.claude-sonnet-4-5-20250929-v1:0",
+      // "system_prompt": "Prefer structured, contract-like responses to improve clarity and navigability. Organize content into numbered articles and clauses when helpful, using hierarchical enumeration (e.g., 1., 1.1, 1.2). Default to this for multi-part or non-trivial answers, and use plain prose for simple replies."
     }
   },
   "mcp": {
@@ -31,16 +32,11 @@
       "url": "https://metabase.addvolt.com/api/mcp",
       "enabled": false
     },
-  "atlassian-addvolt": {
-  "type": "remote",
-  "url": "https://mcp.atlassian.com/v1/mcp/authv2",
-  "enabled": true
-},
-  "atlassian-carrier-digital": {
-  "type": "remote",
-  "url": "https://mcp.atlassian.com/v1/mcp",
-  "enabled": false
-},
+    "atlassian-addvolt": {
+      "type": "remote",
+      "url": "https://mcp.atlassian.com/v1/mcp/authv2",
+      "enabled": true
+    },
     "atlassian-carrier-digital": {
       "type": "remote",
       "url": "https://mcp.atlassian.com/v1/mcp",
